@@ -1,19 +1,9 @@
--- ============================================================
--- BARANGAY SAN ISIDRO MANAGEMENT SYSTEM
--- Database Schema - MySQL 8.0+
--- ============================================================
-
-CREATE DATABASE IF NOT EXISTS barangay_db
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE barangay_db;
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2026 at 05:51 PM
+-- Generation Time: Jun 21, 2026 at 05:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,6 +37,18 @@ CREATE TABLE `activity_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `activity_log`
+--
+
+INSERT INTO `activity_log` (`id`, `user_type`, `user_id`, `action`, `module`, `created_at`) VALUES
+(1, 'resident', NULL, 'New resident registered: BRGY-2026-0001', 'Signup', '2026-06-21 23:39:00'),
+(2, 'resident', NULL, 'New resident registered: BRGY-2026-0001', 'Signup', '2026-06-21 23:44:28'),
+(3, 'resident', NULL, 'New resident registered: BRGY-2026-0001', 'Signup', '2026-06-21 23:45:27'),
+(4, 'resident', NULL, 'New resident registered: BRGY-2026-0002', 'Signup', '2026-06-21 23:46:26');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `admin_users`
 --
 
@@ -61,13 +63,6 @@ CREATE TABLE `admin_users` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `admin_users`
--- password - 12345687
-
-INSERT INTO `admin_users` (`id`, `name`, `email`, `username`, `password_hash`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Barangay Administrator', 'admin@barangaysanisidro.gov.ph', 'admin', '$2y$10$hQfFTo7HMXZkAaxYP08BTO08p8x6N.hqw3j3tTS2A.FDrnI0eUOoW', 'Administrator', 'Active', '2026-06-05 16:38:47', '2026-06-11 16:18:21');
 
 -- --------------------------------------------------------
 
@@ -87,15 +82,6 @@ CREATE TABLE `announcements` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `announcements`
---
-
-INSERT INTO `announcements` (`id`, `title`, `description`, `category`, `color`, `publish_date`, `created_by`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'Fiesta Celebration', 'Join us for the Feast of St. Isidore on May 25, 2026 at the barangay plaza. There will be food, games, entertainment, and community activities for the whole family.', 'Event', 'primary', '2026-05-22', 1, 1, '2026-06-05 16:38:47', '2026-06-05 16:38:47'),
-(2, 'Health Clinic Schedule', 'Free health check-up every Saturday 8AM to 12PM at Health Center. Services include blood pressure screening, vital signs check, and health consultations.', 'Service Update', 'info', '2026-05-19', 1, 1, '2026-06-05 16:38:47', '2026-06-05 16:38:47'),
-(3, 'Curfew Advisory', 'Residents are advised to stay at home during flood alerts. Keep emergency contact numbers handy and monitor weather updates regularly.', 'Advisory', 'warning', '2026-05-21', 1, 1, '2026-06-05 16:38:47', '2026-06-05 16:38:47');
 
 -- --------------------------------------------------------
 
@@ -137,7 +123,7 @@ INSERT INTO `barangay_settings` (`setting_key`, `setting_value`, `updated_at`) V
 ('contact_number', '(02) 111111111111', '2026-06-11 00:40:59'),
 ('email', 'info@barangaysanisidro.gov.ph', '2026-06-05 16:38:48'),
 ('logo_path', 'assets/images/logo_custom.jpg', '2026-06-06 16:15:54'),
-('resident_id_seq', '12', '2026-06-17 23:22:54'),
+('resident_id_seq', '0', '2026-06-17 23:22:54'),
 ('resident_id_year', '2026', '2026-06-05 16:38:48'),
 ('theme_color', '#0066cc', '2026-06-11 16:33:21');
 
@@ -163,6 +149,8 @@ CREATE TABLE `document_requests` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `head_requests`
 --
@@ -180,6 +168,8 @@ CREATE TABLE `head_requests` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `households`
 --
@@ -195,6 +185,8 @@ CREATE TABLE `households` (
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `household_members`
 --
@@ -209,6 +201,8 @@ CREATE TABLE `household_members` (
   `status` enum('Verified','Pending','Inactive') DEFAULT 'Pending',
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `household_requests`
@@ -228,6 +222,8 @@ CREATE TABLE `household_requests` (
   `reviewed_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `puroks`
 --
@@ -242,6 +238,8 @@ CREATE TABLE `puroks` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `residents`
@@ -271,6 +269,7 @@ CREATE TABLE `residents` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `v_dashboard_stats`
@@ -314,6 +313,8 @@ CREATE TABLE `v_residents` (
 ,`longitude` decimal(10,7)
 ,`created_at` datetime
 );
+
+-- --------------------------------------------------------
 
 --
 -- Structure for view `v_dashboard_stats`
@@ -438,13 +439,13 @@ ALTER TABLE `activity_log`
 -- AUTO_INCREMENT for table `admin_users`
 --
 ALTER TABLE `admin_users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `appointments`
@@ -456,25 +457,25 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `document_requests`
 --
 ALTER TABLE `document_requests`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `head_requests`
 --
 ALTER TABLE `head_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `households`
 --
 ALTER TABLE `households`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `household_members`
 --
 ALTER TABLE `household_members`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `household_requests`
@@ -486,7 +487,7 @@ ALTER TABLE `household_requests`
 -- AUTO_INCREMENT for table `puroks`
 --
 ALTER TABLE `puroks`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `residents`
